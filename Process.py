@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 import time
 
 
@@ -43,9 +44,15 @@ def find_goods(my_driver):
     change = my_driver.find_element_by_xpath("//div[@data-radio='1']")
     change.click()
 
+    guests = my_driver.find_element_by_class_name('slider-line__num--active')
+    actions = ActionChains(my_driver)
+    ch = my_driver.find_element_by_class_name('slider-line__num-max')
+    actions.drag_and_drop(guests, ch)
+    actions.click()
+    actions.perform()
+
+
     my_driver.switch_to.default_content()
-
-
 
 PATH = "/home/tais/chromedriver"
 driver = webdriver.Chrome(PATH)
